@@ -18,7 +18,8 @@ services:
 networks:
   default:
     external: true
-    name: npm-proxy
+    name: npm-proxy #Change the name of the network as you like 
 
 
 #Note enable TLS as full when using cloudflare SSL certs 
+#Note ensure to create a network of the network name before running the container
