@@ -26,7 +26,7 @@ log:
   level: debug
 
 totp:
-  issuer: aungzmtech.com #your authelia top-level domain
+  issuer: yourdomain.com #your authelia top-level domain
   period: 30
   skew: 1
 
@@ -36,7 +36,7 @@ authentication_backend:
   file:
     path: /config/users_database.yml #this is where your authorized users are stored
     password:
-      algorithm: argon2id
+      algorithm: argon2id #default uses argon2id but if changed make sure your encrypted password also changes according in users_database.yml
       iterations: 1
       key_length: 32
       salt_length: 16
@@ -44,37 +44,39 @@ authentication_backend:
       parallelism: 8
 
 access_control:
-  default_policy: bypass
+  default_policy: deny #Default bypasses all domains without if not added to one_factor or bypass section
   rules:
     - domain:
-        - "auth.aungzm.com" #This should be your authentication URL
-        - "aungzmtech.com"
+        - "auth.yourdomain.com" #This should be your authentication URL where authelia sits
+        - "any.yourdomain.com"
       policy: bypass
     - domain:
-        - "*.aungzmtech.com"
+        - "somethhing.yourdomain.com" #This will prompt you a username and password
       policy: one_factor
       #add or remove additional subdomains as necessary. currenlty only supports ONE top-level domain
       #any time you add a new subdomain, you will need to restart the Authelia container to recognize the new settings/rules
 
 session:
   name: authelia_session
-  secret: unsecure_session_secret #any text or number you want to add here to create jwt Token
+  secret: unsecure_session_secret #any text or number you want to add here to create jwt Token, randomizer recommended
   expiration: 3600  # 1 hour
   inactivity: 600  # 5 minutes
-  domain: aungzmtech.com  # Should match whatever your root protected domain is
+  domain: yourtopleveldomain.com  # Should match whatever your root protected domain is
 
 regulation:
   max_retries: 4
-  find_time: 10m
-  ban_time: 24h
+  find_time: 10m #
+  ban_time: 24h #Banning time after failture
 
 storage:
   local:
-    path: /config/db.sqlite3 #this is your databse. You could use a mysql database if you wanted, but we're going to use this one.
-  encryption_key: bSDUtydnk5yiZwI6CbjW #added Dec 5 2021
+    path: /config/db.sqlite3 #this is your databse. Mysql database can be used for lots of users, but sqlite3 is enough for few.
+  encryption_key: bSDUtydnk5yiZwI6CbjW #Random enryption key for sqlite3
   
 notifier:
   disable_startup_check: false
   filesystem:
-    filename: /config/notification.txt
+    filename: /config/notification.txt 
+    #This is where your reset password gets sent to, smtp can also be configured, 
+    #check here: https://www.authelia.com/configuration/notifications/smtp/
 ...

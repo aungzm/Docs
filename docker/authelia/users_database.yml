@@ -1,10 +1,17 @@
 users:
   AHisham:  #username for user 1. change to whatever you'd like
     displayname: "Admin" #whatever you want the display name to be
-    password: "$argon2id$v=19$m=1024,t=1,p=8$Y0ZWZkRaWGh5cGU1ODhNRQ$YLrGmkF8GyshQqXtg76TlTeuvaVyFPQKJeKwGJeiUtA" 
+    password: #This should be your password encrypted with Argon2
     email: aungzm@gmail.com #whatever your email address is
     groups: #enter the groups you want the user to be part of below
       - admins
       - users
-#AZhs@ent!srv.auth22$
 #generated password at https://argon2.online/
+#Enter your password into the "Plain Text Input"
+
+#Click the gear in "Salt" to generate a random string of characters.
+#These are the default but change as needed
+#Parallelism: 8
+#Memory Cost: 1024
+#Iterations: 1
+#Hash Length: 32

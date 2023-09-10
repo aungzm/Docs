@@ -8,9 +8,9 @@ services:
 #    ports:
 #      - 9091:9091
     environment:
-      - TZ=America/Toronto
+      - TZ= #Change as needed
 
 networks:
   default:
     external: true
-    name: npm-proxy
+    name: npm-proxy #Adds it to the reverse-proxy network, allow reverse-proxy to reach it
