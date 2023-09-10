@@ -1,0 +1,38 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    container_name: wp_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: # your root passsord
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: # your wordpress database password
+    volumes:
+      - ./db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    restart: always
+    depends_on:
+      - db
+#    ports:
+#      - '8000:80'
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: #your wordpress database password
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - ./wp_data:/var/www/html
+
+networks:
+  default:
+    external: true
+    name: npm-proxy #your network that reverse-proxy is on
+
+#Note when accessing the first time, create wordpress account and pages first at: yourdomain.com/wp-admin 
+#As yourwordpressdomain.com will give you 404 or cloudflare error (no pages there yet)
+#Set your site url in the Settings -> General tab of wordpress
