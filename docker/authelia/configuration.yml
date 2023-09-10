@@ -1,0 +1,80 @@
+# yamllint disable rule:comments-indentation
+---
+###############################################################################
+#                           Authelia Configuration                            #
+###############################################################################
+
+theme: dark #light/dark
+jwt_secret: dTuUGWXcP3lZDg0pfua6 #any text or number you want to add here to create jwt Token
+
+default_redirection_url: https://google.com/ #where to redirect for a non-existent URL
+
+server:
+  host: 0.0.0.0
+  port: 9091
+  path: ""
+  read_buffer_size: 4096
+  write_buffer_size: 4096
+  enable_pprof: false
+  enable_expvars: false
+  disable_healthcheck: false
+  tls:
+    key: ""
+    certificate: ""
+
+log:
+  level: debug
+
+totp:
+  issuer: aungzmtech.com #your authelia top-level domain
+  period: 30
+  skew: 1
+
+authentication_backend:
+  disable_reset_password: false
+  refresh_interval: 5m
+  file:
+    path: /config/users_database.yml #this is where your authorized users are stored
+    password:
+      algorithm: argon2id
+      iterations: 1
+      key_length: 32
+      salt_length: 16
+      memory: 1024
+      parallelism: 8
+
+access_control:
+  default_policy: bypass
+  rules:
+    - domain:
+        - "auth.aungzm.com" #This should be your authentication URL
+        - "aungzmtech.com"
+      policy: bypass
+    - domain:
+        - "*.aungzmtech.com"
+      policy: one_factor
+      #add or remove additional subdomains as necessary. currenlty only supports ONE top-level domain
+      #any time you add a new subdomain, you will need to restart the Authelia container to recognize the new settings/rules
+
+session:
+  name: authelia_session
+  secret: unsecure_session_secret #any text or number you want to add here to create jwt Token
+  expiration: 3600  # 1 hour
+  inactivity: 600  # 5 minutes
+  domain: aungzmtech.com  # Should match whatever your root protected domain is
+
+regulation:
+  max_retries: 4
+  find_time: 10m
+  ban_time: 24h
+
+storage:
+  local:
+    path: /config/db.sqlite3 #this is your databse. You could use a mysql database if you wanted, but we're going to use this one.
+  encryption_key: bSDUtydnk5yiZwI6CbjW #added Dec 5 2021
+  
+notifier:
+  disable_startup_check: false
+  filesystem:
+    filename: /config/notification.txt
+...

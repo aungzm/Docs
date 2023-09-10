@@ -1,0 +1,10 @@
+users:
+  AHisham:  #username for user 1. change to whatever you'd like
+    displayname: "Admin" #whatever you want the display name to be
+    password: "$argon2id$v=19$m=1024,t=1,p=8$Y0ZWZkRaWGh5cGU1ODhNRQ$YLrGmkF8GyshQqXtg76TlTeuvaVyFPQKJeKwGJeiUtA" 
+    email: aungzm@gmail.com #whatever your email address is
+    groups: #enter the groups you want the user to be part of below
+      - admins
+      - users
+#AZhs@ent!srv.auth22$
+#generated password at https://argon2.online/
