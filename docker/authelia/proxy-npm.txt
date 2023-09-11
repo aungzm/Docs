@@ -77,3 +77,5 @@ real_ip_header CF-Connecting-IP;
 real_ip_recursive on;
 
 }
+
+#Source from dbt3ch.com
