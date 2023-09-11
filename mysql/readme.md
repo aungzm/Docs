@@ -1,4 +1,4 @@
-Sure, here are 15 useful MySQL commands in plaintext markdown:
+Here are 15 useful MySQL commands in plaintext markdown:
 
 ## 1. Login to MySQL server
 ```bash
