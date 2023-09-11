@@ -1,0 +1,30 @@
+version: "3"
+services:
+  app:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    container_name: npm
+    ports:
+      - '80:80'
+      - '443:443'
+      # '81:81'
+    environment:
+        DISABLE_IPV6: 'true'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+      # ./websites:/mnt/user/appdata/NginxProxyManager/websites
+    networks:
+      - npm-proxy
+
+networks:
+  default:
+    external: true
+    name: npm-proxy #Change the name of the network as you like 
+
+
+#Note enable TLS as full when using cloudflare SSL certs 
+#Note ensure to create a network of the network name before running the container
+#Nginx Proxy Manager come with the default username and password
+#When setting urls, use container name and port number and http not https
+#Nginx proxy manager also work with not only Lets Encrypt but other certs providers like Cloudflare

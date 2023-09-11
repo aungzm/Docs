@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: unless-stopped
+#    ports:
+#      - 9000:9000 
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /where/your/data/is:/data
+    networks:
+      - npm-proxy
+
+networks:
+  default:
+    external: true
+    name: npm-proxy #Change nework name ensure your reverse proxy and containers have the same network

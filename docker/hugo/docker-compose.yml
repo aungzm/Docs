@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  hugo-server:
+    container_name: hugo
+    image: klakegg/hugo:0.101.0
+    command: server
+    volumes:
+      - ".:/src"
+#    ports:
+#      - "1313:1313"
+    networks:
+      - npm-proxy
+
+networks:
+  default:
+    external: true
+    name: npm-proxy #Change the name of the network to the one your reverse proxy is on
+
+#Note that this container only works if you already have a hugo site ready to deploy to web (not for starting from scratch)
+#For starting from scratch, doing it on local machine is recommended
+#When experiencing config file/directory not found, ensure that your hugo.yml is config.yml as versions older than 0.110.0 don't look for hugo.yml

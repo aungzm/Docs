@@ -1,0 +1,8 @@
+1. Check if docker-compose is installed
+docker-compose --version
+2. Download the latest docker-compose version and save it in /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/2.20.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+3. Make the downloaded file executable by changing the file permission 
+sudo chmod +x /usr/local/bin/docker-compose
+4. Check docker-compose version
+sudo docker–compose --version
