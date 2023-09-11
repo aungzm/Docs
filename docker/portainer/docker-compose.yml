@@ -10,6 +10,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /where/your/data/is:/data
+    networks:
+      - npm-proxy
 
 networks:
   default:
